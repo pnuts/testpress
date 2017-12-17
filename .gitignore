@@ -1,5 +1,8 @@
 *.log
+<<<<<<< HEAD
 
+=======
+>>>>>>> fcee431832678f0f98b9b367a096c129f7404ee1
 /.idea
 /.htaccess
 /license.txt
