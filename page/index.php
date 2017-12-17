@@ -4,9 +4,7 @@
     get_partial('part/subheader', array(
         'title' => 'All Test',
     ));
-    get_partial('part/test-list', array(
-        'tests' => array()
-    ));
+    get_partial('part/test-list');
     ?>
 </div>
 <?php get_footer() ?>
