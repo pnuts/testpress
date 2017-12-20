@@ -8,8 +8,9 @@
     ?>
 </div>
 <div id="side">
-    <div v-if="selected-test-list" id="selected-test-block" class="block">
+    <div v-show="selectedTests.length" id="selected-test-block" class="block">
         <h4>Selected Tests</h4>
+        <button class="btn btn-sm">Run Tests</button>
         <ul id="selected-test-list">
             <li
                 v-if="test.selected"
@@ -23,7 +24,7 @@
 </div>
 <script type="application/javascript">
     window.selectMapApp = new Vue({
-        el: '#selected-test-list',
+        el: '#selected-test-block',
         data: {
             selectedTests: selectedTests
         },

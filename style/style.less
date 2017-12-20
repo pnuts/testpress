@@ -35,7 +35,15 @@ body {
 }
 
 #selected-test-block {
+    overflow: hidden;
+    h4 {
+        float: left;
+    }
+    button {
+        float: right;
+    }
     ul {
+        clear: both;
         list-style-type: none;
         padding: 0;
         margin: 0;
@@ -178,7 +186,7 @@ a:hover, a:active {
         }
 
         .passed {
-            .days {
+            .status {
                 border-color: @baseGreen;
                 color: @baseGreen;
 
@@ -188,8 +196,8 @@ a:hover, a:active {
             }
         }
 
-        .just-passed {
-            .days {
+        .auto-test {
+            .status {
                 background: @baseGreen;
                 color: white;
 
@@ -199,7 +207,7 @@ a:hover, a:active {
             }
         }
         .failed {
-            .days {
+            .status {
                 color: white;
                 background: @error;
 
@@ -214,6 +222,7 @@ a:hover, a:active {
             display: block;
             float: left;
             div {
+                box-sizing: content-box;
                 cursor: pointer;
                 border: 1px solid transparent;
                 line-height: 1;

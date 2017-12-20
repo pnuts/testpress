@@ -39,10 +39,11 @@ window.data1 = [
 
     {
         title: 'How to populate TableView with String Arraylist in JavaFX',
-        status: 'just-passed',
+        status: 'passed',
         selected: false,
         id: 3,
         days: 0,
+        auto: true,
         votes: 2,
         categories: [
             { alias: 'hostucan', name: 'HostUCan' }

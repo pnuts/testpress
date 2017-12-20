@@ -5,8 +5,11 @@
          v-bind:class="classname(test)"
          v-on:click="select(test)">
         <div class="statistics">
-            <div class="days">
-                <span>{{ test.days ? test.days : 'Not' }}</span>test
+            <div class="status" v-if="test.auto">
+                <span>Auto</span>test
+            </div>
+            <div v-else class="status">
+                <span>{{ test.days }}</span>days
             </div>
             <div class="votes">
                 <span>{{ test.votes }}</span>votes
@@ -34,7 +37,7 @@
         },
         methods: {
             classname: function(test) {
-                return test.status + ' ' + (test.selected ? 'selected' : '');
+                return test.status + (test.auto ? ' auto-test' : ' ') + (test.selected ? ' selected' : ' ');
             },
             select: function(test) {
                 test.selected = !test.selected;

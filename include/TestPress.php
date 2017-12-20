@@ -36,12 +36,26 @@ class TestPress
     public function enqueueScriptsAction()
     {
         $uri = get_template_directory_uri();
+
         wp_enqueue_style('generate-less', $uri . '/style/_generate.css');
         wp_enqueue_style( 'dashicons' );
-        wp_enqueue_script('jquery', $uri . '/script/jquery-1.11.3.min.js');
-        wp_enqueue_script('vuejs', $uri . '/script/vue-2.5.11.min.js');
-        wp_enqueue_script('base-script', $uri . '/script/script.js');
         add_action( 'wp_enqueue_scripts', 'load_dashicons_front_end' );
+
+        /* jQuery */
+        wp_enqueue_script('jquery-3.2.1', $uri . '/lib/jquery/jquery-3.2.1.min.js');
+
+        /* Vue */
+        wp_enqueue_script('vuejs', $uri . '/lib/vue/vue-2.5.11.min.js');
+
+        /* Popper */
+        wp_enqueue_script('popper-js', $uri . '/lib/popper/popper.min.js');
+
+        /* Bootstrap */
+        wp_enqueue_style('bootstrap-css', $uri . '/lib/bootstrap/bootstrap.min.css');
+        wp_enqueue_script('bootstrap-js', $uri . '/lib/bootstrap/bootstrap.min.js');
+
+        /* Theme Script */
+        wp_enqueue_script('base-script', $uri . '/script/script.js');
     }
 
     public function adminEnqueueScriptsAction()
