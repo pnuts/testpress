@@ -37,9 +37,11 @@ class TestPress
     {
         $uri = get_template_directory_uri();
         wp_enqueue_style('generate-less', $uri . '/style/_generate.css');
+        wp_enqueue_style( 'dashicons' );
         wp_enqueue_script('jquery', $uri . '/script/jquery-1.11.3.min.js');
         wp_enqueue_script('vuejs', $uri . '/script/vue-2.5.11.min.js');
         wp_enqueue_script('base-script', $uri . '/script/script.js');
+        add_action( 'wp_enqueue_scripts', 'load_dashicons_front_end' );
     }
 
     public function adminEnqueueScriptsAction()

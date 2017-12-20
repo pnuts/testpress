@@ -15,6 +15,65 @@ body {
 #main {
     width: 70%;
     margin: 24px 0;
+    float: left;
+}
+
+#side {
+    width: 27%;
+    margin: 24px 0;
+    float: right;
+
+    .block {
+        h4 {
+            line-height: 2.22;
+            color: #242729;
+            font-size: 18px;
+            font-weight: 400;
+            margin: 0;
+        }
+    }
+}
+
+#selected-test-block {
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        overflow: hidden;
+        padding-bottom: 6px;
+        a {
+            display: inline-block;
+            font-size: 13px;
+            width: calc(~"100% - 20px");
+            box-sizing: border-box;
+            padding-right: 10px;
+            margin-bottom: 0;
+        }
+
+        span:before {
+            font-family: dashicons;
+            font-size: 15px;
+            color: #888;
+            content: "\f335";
+            display: inline-block;
+            position: relative;
+            top: 2px;
+        }
+
+        span {
+            float: right;
+            text-align: center;
+        }
+    }
+
+    li:hover {
+        span:before {
+            color: #333;
+        }
+    }
 }
 
 .bound {
@@ -23,7 +82,8 @@ body {
 }
 
 @media only screen and (max-device-width: 640px) {
-    #main {
+    #main, #sidebar
+    {
         width: 100%;
     }
     .bound {
@@ -34,6 +94,10 @@ body {
 a {
     text-decoration: none;
     color: @link;
+}
+
+a:hover, a:active {
+    color: #3af;
 }
 
 .ctrlTitleTabs() {
@@ -106,6 +170,7 @@ a {
     .ctrl.test-list {
         .test-item {
             padding: 12px 10px 10px 130px;
+            border-left: 3px solid transparent;
             border-bottom: 1px solid #e4e6e8;
             box-sizing: border-box;
             overflow: hidden;
@@ -239,6 +304,7 @@ a {
 
         .test-item.selected {
             background: #fffbec;
+            border-left-color: @baseOrange;
         }
     }
 }
