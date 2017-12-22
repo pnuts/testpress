@@ -1,7 +1,7 @@
 jQuery(function($) {
     if($('body.post-type-post').length) {
         CodeMirror.fromTextArea($('#content')[0], {
-            mode:  "javascript",
+            mode:  "php",
             lineNumbers: true,
             matchBrackets: true
         });

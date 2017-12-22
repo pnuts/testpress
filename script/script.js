@@ -6,6 +6,7 @@ window.data1 = [
         id: 1,
         days: 0,
         votes: 2,
+        reviewer: 'cider',
         categories: [
             { alias: 'hostucan', name: 'HostUCan' }
         ],
@@ -25,6 +26,7 @@ window.data1 = [
         id: 2,
         days: 10,
         votes: 2,
+        reviewer: 'cider',
         categories: [
             { alias: 'hostucan', name: 'HostUCan' }
         ],
@@ -43,7 +45,7 @@ window.data1 = [
         selected: false,
         id: 3,
         days: 0,
-        auto: true,
+        reviewer: 'pnuts',
         votes: 2,
         categories: [
             { alias: 'hostucan', name: 'HostUCan' }
@@ -63,7 +65,8 @@ window.data1 = [
         selected: false,
         id: 4,
         days: 10,
-        vote: 2,
+        votes: 2,
+        reviewer: 'cider',
         categories: [
             { alias: 'hostucan', name: 'HostUCan' }
         ],
@@ -84,6 +87,7 @@ window.data2 = [
         id: 5,
         days: 0,
         votes: 2,
+        reviewer: 'cider',
         categories: [
             { alias: 'hostucan', name: 'HostUCan' }
         ],
@@ -103,6 +107,7 @@ window.data2 = [
         id: 6,
         days: 10,
         votes: 2,
+        reviewer: 'cider',
         categories: [
             { alias: 'hostucan', name: 'HostUCan' }
         ],

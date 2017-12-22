@@ -65,7 +65,8 @@ class TestPress
         /* CodeMirror */
         wp_enqueue_style('codemirror-css', $uri . '/lib/codemirror/codemirror.css');
         wp_enqueue_script('codemirror-js', $uri . '/lib/codemirror/codemirror.js');
-        wp_enqueue_script('codemirror-lib-javascript', $uri . '/lib/codemirror/mode/javascript/javascript.js');
+        //wp_enqueue_script('codemirror-lib-javascript', $uri . '/lib/codemirror/mode/javascript/javascript.js');
+        wp_enqueue_script('codemirror-lib-php', $uri . '/lib/codemirror/mode/php/php.js');
         wp_enqueue_script('codemirror-addon-matchbrackets', $uri . '/lib/codemirror/addon/edit/matchbrackets.js');
         wp_enqueue_script('codemirror-addon-comment', $uri . '/lib/codemirror/addon/comment/comment.js');
 

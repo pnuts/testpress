@@ -4,12 +4,20 @@
 @baseBlue: #07C;
 @baseDarkBlue: #005999;
 @error: #C91D2E;
+@success: #28a745;
+
+@buttonGreen: @baseGreen;
+@buttonGreenHover: #2EB779;
 
 body {
     font-family: Arial,"Microsoft YaHei UI", "Helvetica Neue",Helvetica,sans-serif;
     padding-top: 60px;
     margin: 0;
     min-width: 760px;
+}
+
+button {
+    cursor: pointer;
 }
 
 #main {
@@ -35,18 +43,28 @@ body {
 }
 
 #selected-test-block {
+    @link-button-bg: rgb(59, 173, 233);
+    @link-button-border: rgb(51, 161, 220);
     overflow: hidden;
     h4 {
         float: left;
     }
+
     button {
+        line-height: 1.3;
+        margin-top: 4px;
         float: right;
+        background: @baseGreen;
+        color: white;
+    }
+    button:hover {
+        background: @buttonGreenHover;
     }
     ul {
         clear: both;
         list-style-type: none;
         padding: 0;
-        margin: 0;
+        margin: 4px 0 0 0;
     }
 
     li {
@@ -99,13 +117,14 @@ body {
     }
 }
 
-a {
-    text-decoration: none;
-    color: @link;
-}
-
-a:hover, a:active {
-    color: #3af;
+body {
+    a {
+        color: @link;
+    }
+    a:hover, a:active {
+        text-decoration: none;
+        color: #3af;
+    }
 }
 
 .ctrlTitleTabs() {
@@ -129,6 +148,7 @@ a:hover, a:active {
         .tabs {
             line-height: 2.22;
             float: right;
+            margin-top: -1px;
 
             a {
                 color: #848d95;
@@ -196,7 +216,7 @@ a:hover, a:active {
             }
         }
 
-        .auto-test {
+        .reviewed_by_me {
             .status {
                 background: @baseGreen;
                 color: white;
@@ -337,8 +357,9 @@ a:hover, a:active {
     }
 
     #site-logo {
-        display: inline-block;
+        display: block;
         height: 100%;
+        float: left;
 
         background: url(../images/logo.png) 10px center no-repeat;
         background-size: 25px;
@@ -353,7 +374,8 @@ a:hover, a:active {
     }
 
     form {
-        display: inline-block;
+        display: block;
+        float: left;
         font-size: 0;
         margin: auto 10px;
         width: 70%;
@@ -375,7 +397,7 @@ a:hover, a:active {
             height: 26px;
             display: inline-block;
             position: relative;
-            top: 10px;
+            top: 15px;
             left: -36px;
             color: @link;
             border: none;

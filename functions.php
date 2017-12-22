@@ -24,10 +24,6 @@ add_action('admin_menu', array($testpress, 'changePostObjectLabel'));
 add_filter('wp_editor_settings', array($testpress, 'editorSettingsFilter'));
 
 /**
- *
- */
-
-/**
  * @param array $rules array('url regex' => controller, ...)
  * @return bool|mixed
  */
