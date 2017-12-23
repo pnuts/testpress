@@ -47,6 +47,9 @@ class TestPress
         /* Vue */
         wp_enqueue_script('vuejs', $uri . '/lib/vue/vue-2.5.11.min.js');
 
+	    /* Aes */
+	    wp_enqueue_script('aes', $uri . '/lib/aes/aes.js');
+
         /* Popper */
         wp_enqueue_script('popper-js', $uri . '/lib/popper/popper.min.js');
 

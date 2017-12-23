@@ -1,9 +1,9 @@
 <div id="test-list" class="ctrl test-list">
     <div v-for="test in testList"
          class="test-item"
-         v-bind:key="test.id"
-         v-bind:class="classname(test)"
-         v-on:click="select(test)">
+         :key="test.id"
+         :class="classname(test)"
+         @click="revertStatus(test)">
         <div class="statistics">
             <div class="status">
                 <span>{{ test.days }}</span>days
@@ -15,22 +15,39 @@
         <div class="summary">
             <h3><a href="javascript:void(0)">{{ test.title }}</a></h3>
             <div class="categories">
-                <a v-for="category in test.categories" v-bind:href="category.alias">{{ category.name }}</a>
+                <a v-for="category in test.categories" :href="category.alias">{{ category.name }}</a>
             </div>
             <div class="tags">
-                <a v-for="tag in test.tags" v-bind:href="tag.alias">{{ tag.name }}</a>
+                <a v-for="tag in test.tags" :href="tag.alias">{{ tag.name }}</a>
             </div>
             <div class="info">Last test at <b>{{ test.date.last_test }}</b> by <a href="javascript:void(0)">Pnuts</a></div>
         </div>
     </div>
 </div>
 <script type="application/javascript">
-    window.testList = [];
-    window.selectedTests = [];
+    var salt = $('#session_id').attr('content');
+    Storage.prototype.setObject = function (key, value, salt) {
+        this.setItem(key, CryptoJS.AES.encrypt(JSON.stringify(value), salt).toLocaleString());
+    };
+
+    Storage.prototype.getObject = function (key, defaultValue = null, salt) {
+        var data = this.getItem(key);
+        if (data === null) {
+            return defaultValue;
+        }
+        try {
+            return JSON.parse(CryptoJS.AES.decrypt(data, salt).toString(CryptoJS.enc.Utf8));
+        } catch (e) {
+            return defaultValue;
+        }
+    };
+    var selectedTestIds = new Set(localStorage.getObject('selectedTestIds', [], salt));
     window.testListApp = new Vue({
         el: '#test-list',
         data: {
-            testList: testList
+            testList: [],
+            selectedTests: {},
+            selectedTestIds: selectedTestIds
         },
         methods: {
             classname: function(test) {
@@ -38,13 +55,16 @@
                     + (test.selected ? ' selected' : ' ')
                     + (test.reviewer === 'pnuts' ? ' reviewed_by_me' : ' ');
             },
-            select: function(test) {
+            revertStatus: function(test) {
                 test.selected = !test.selected;
                 if(test.selected) {
-                    selectedTests.push(test);
+                    this.$set(this.selectedTests, test.id, test);
+                    this.selectedTestIds.add(test.id);
                 } else {
-                    selectedTests.splice(selectedTests.indexOf(test), 1);
+                    this.$delete(this.selectedTests, test.id);
+                    this.selectedTestIds.delete(test.id);
                 }
+                localStorage.setObject('selectedTestIds', Array.from(this.selectedTestIds), salt);
             },
             preventDefault: function(e) {
                 e.preventDefault();
@@ -52,4 +72,19 @@
             }
         }
     });
+
+    window.updateTestList = function(datas) {
+        testListApp.testList = [];
+        for(var i in datas) {
+            var data = datas[i];
+            data.selected = this.selectedTestIds.has(data.id);
+            testListApp.testList.push(data);
+
+            if(data.selected) {
+                testListApp.$set(testListApp.selectedTests, data.id, data);
+            } else {
+                testListApp.$delete(testListApp.selectedTests, data.id);
+            }
+        }
+    };
 </script>

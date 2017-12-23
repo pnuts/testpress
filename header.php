@@ -4,6 +4,7 @@
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width">
     <?php wp_head(); ?>
+    <meta id="session_id" content="<?= session_id() ?>" />
 </head>
 <body <?php body_class(); ?>>
 <header id="top-bar">
