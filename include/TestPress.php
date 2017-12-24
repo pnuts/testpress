@@ -80,6 +80,57 @@ class TestPress
         wp_enqueue_script('admin-js', $uri . '/script/admin.js');
     }
 
+	function getPostMetaCallBack( $post ) {
+		return get_post_meta( $post['id'] );
+	}
+
+	/**
+	 * @param $args
+	 * @param $request
+	 *
+	 * @return mixed
+	 *
+	 * Wodpress default disable filter param in rest api. This function enable the filter parameter, and
+	 * add meta data query support.
+	 */
+	function enableRestApiFilterParam($args, $request ) {
+		if ( empty( $request['filter'] ) || ! is_array( $request['filter'] ) ) {
+			return $args;
+		}
+		$filter = $request['filter'];
+
+		if(isset($filter['posts_per_page'])) {
+			$posts_per_page = (int)$filter['posts_per_page'];
+			if($posts_per_page >=1  && $posts_per_page <= 100) {
+				$args['posts_per_page'] = $posts_per_page;
+			}
+		}
+
+		global $wp;
+		$vars = apply_filters( 'query_vars', $wp->public_query_vars );
+		$vars = array_merge($vars, array('meta_key', 'meta_value', 'meta_query'));
+		foreach ( $vars as $var ) {
+			if ( isset( $filter[ $var ] ) ) {
+				$args[ $var ] = $filter[ $var ];
+			}
+		}
+		if(isset($args['meta_query'])) { $args['meta_query'] = json_decode($args['meta_query'], true); }
+		return $args;
+	}
+
+	public function restApiInitAction() {
+		/* https://n8finch.com/getting-post-meta-wp-rest-api/ */
+		register_rest_field( 'post', 'meta', array(
+				'get_callback' => array($this, 'getPostMetaCallBack'),
+				'schema' => null,
+			)
+		);
+
+		foreach ( get_post_types( array( 'show_in_rest' => true ), 'objects' ) as $post_type ) {
+			add_filter( 'rest_' . $post_type->name . '_query', array($this, 'enableRestApiFilterParam'), 10, 2 );
+		}
+	}
+
     public function autoGenerateCss($source, $target)
     {
         $templateDir = get_template_directory();

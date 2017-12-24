@@ -25,7 +25,7 @@
     </div>
 </div>
 <script type="application/javascript">
-    var salt = $('#session_id').attr('content');
+    var sessionId = $('#session_id').attr('content');
     Storage.prototype.setObject = function (key, value, salt) {
         this.setItem(key, CryptoJS.AES.encrypt(JSON.stringify(value), salt).toLocaleString());
     };
@@ -41,7 +41,7 @@
             return defaultValue;
         }
     };
-    var selectedTestIds = new Set(localStorage.getObject('selectedTestIds', [], salt));
+    var selectedTestIds = new Set(localStorage.getObject('selectedTestIds', [], sessionId));
     window.testListApp = new Vue({
         el: '#test-list',
         data: {
@@ -64,7 +64,7 @@
                     this.$delete(this.selectedTests, test.id);
                     this.selectedTestIds.delete(test.id);
                 }
-                localStorage.setObject('selectedTestIds', Array.from(this.selectedTestIds), salt);
+                localStorage.setObject('selectedTestIds', Array.from(this.selectedTestIds), sessionId);
             },
             preventDefault: function(e) {
                 e.preventDefault();

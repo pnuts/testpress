@@ -19,6 +19,7 @@ add_action('after_setup_theme', array($testpress, 'removeAdminBar'));
 add_action('admin_init', array($testpress, 'adminInitAction'));
 add_action('admin_enqueue_scripts', array($testpress, 'adminEnqueueScriptsAction'));
 add_action('admin_menu', array($testpress, 'changePostObjectLabel'));
+add_action( 'rest_api_init', array($testpress, 'restApiInitAction') );
 
 /* Add Filters */
 add_filter('wp_editor_settings', array($testpress, 'editorSettingsFilter'));
