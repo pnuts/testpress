@@ -24,6 +24,17 @@
         </div>
     </div>
 </div>
+<div id="pager" class="ctrl pager">
+    <div class="links">
+		<a>prev</a>
+		<a>1</a>
+		<strong class="current">2</strong>
+		<a>3</a>
+		<span>...</span>
+		<a>100</a>
+		<a>next</a>
+    </div>
+</div>
 <script type="application/javascript">
     var sessionId = $('#session_id').attr('content');
     Storage.prototype.setObject = function (key, value, salt) {
