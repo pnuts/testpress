@@ -24,17 +24,8 @@
         </div>
     </div>
 </div>
-<div id="pager" class="ctrl pager">
-    <div class="links">
-		<a>prev</a>
-		<a>1</a>
-		<strong class="current">2</strong>
-		<a>3</a>
-		<span>...</span>
-		<a>100</a>
-		<a>next</a>
-    </div>
-</div>
+<?php get_partial('part/ctrl/pager', array('id' => 'pager-template')); ?>
+<div id="pager"></div>
 <script type="application/javascript">
     var sessionId = $('#session_id').attr('content');
     Storage.prototype.setObject = function (key, value, salt) {
@@ -98,4 +89,16 @@
             }
         }
     };
+
+    window.pagerApp =  new Vue({
+        el: '#pager',
+        template: '#pager-template',
+        data: {
+            current: 52,
+            total:100
+        },
+        methods: {
+            showPage: function(page) { alert(page); }
+        }
+	});
 </script>
