@@ -4,7 +4,7 @@ $id = isset($id) ? $id : 'pager-template';
 <script type="x-template" id="<?= $id ?>">
 	<div class="ctrl pager" v-if="current > 0 && current <= total && total > 1">
 		<div class="links">
-			<a v-if="current > 1" @click="showPage(current - 1)" @click="showPage(current - 1)">prev</a>
+			<a v-if="current > 1" @click="showPage(current - 1)">prev</a>
 			<span v-if="current > 2">...</span>
 			<template v-for="i in 5">
 				<a v-if="i != 3 && current - 3 + i > 0 && current - 3 + i < total"
@@ -20,10 +20,13 @@ $id = isset($id) ? $id : 'pager-template';
 </script>
 <script>
     Vue.component('pager', {
-        props: ['current', 'total'],
+        props: ['current', 'total', 'callback'],
         template: '#<?= $id ?>',
         methods: {
-            showPage: function(page) { alert(page); }
+            showPage: function(page) {
+                this.current = page;
+                this.callback(page);
+            }
         }
     });
 </script>

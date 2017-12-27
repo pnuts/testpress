@@ -23,7 +23,7 @@
             <div class="info">Last test at <b>{{ test.date.last_test }}</b> by <a href="javascript:void(0)">Pnuts</a></div>
         </div>
     </div>
-    <pager v-if="pager" :current="pager.current" :total="pager.total"></pager>
+    <pager v-if="pager" :current="pager.current" :total="pager.total" :callback="showList"></pager>
 </div>
 <?php get_partial('part/ctrl/pager', array('id' => 'pager-template')); ?>
 <script type="application/javascript">
@@ -71,6 +71,8 @@
                     this.selectedTestIds.delete(test.id);
                 }
                 localStorage.setObject('selectedTestIds', Array.from(this.selectedTestIds), sessionId);
+            },
+            showList: function(page) {
             },
             preventDefault: function(e) {
                 e.preventDefault();
