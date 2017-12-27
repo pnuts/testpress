@@ -1,5 +1,7 @@
-<?php extract($args); ?>
-<script type="x-template" id="<?= isset($id) ? $id : 'pager-template' ?>">
+<?php extract($args);
+$id = isset($id) ? $id : 'pager-template';
+?>
+<script type="x-template" id="<?= $id ?>">
 	<div class="ctrl pager" v-if="current > 0 && current <= total && total > 1">
 		<div class="links">
 			<a v-if="current > 1" @click="showPage(current - 1)" @click="showPage(current - 1)">prev</a>
@@ -15,4 +17,13 @@
 			<a v-if="current < total" @click="showPage(current + 1)">next</a>
 		</div>
 	</div>
+</script>
+<script>
+    Vue.component('pager', {
+        props: ['current', 'total'],
+        template: '#<?= $id ?>',
+        methods: {
+            showPage: function(page) { alert(page); }
+        }
+    });
 </script>

@@ -23,9 +23,9 @@
             <div class="info">Last test at <b>{{ test.date.last_test }}</b> by <a href="javascript:void(0)">Pnuts</a></div>
         </div>
     </div>
+    <pager v-if="pager" :current="pager.current" :total="pager.total"></pager>
 </div>
 <?php get_partial('part/ctrl/pager', array('id' => 'pager-template')); ?>
-<div id="pager"></div>
 <script type="application/javascript">
     var sessionId = $('#session_id').attr('content');
     Storage.prototype.setObject = function (key, value, salt) {
@@ -49,7 +49,11 @@
         data: {
             testList: [],
             selectedTests: {},
-            selectedTestIds: selectedTestIds
+            selectedTestIds: selectedTestIds,
+            pager: {
+                current: 52,
+                total: 100
+            }
         },
         methods: {
             classname: function(test) {
@@ -89,16 +93,4 @@
             }
         }
     };
-
-    window.pagerApp =  new Vue({
-        el: '#pager',
-        template: '#pager-template',
-        data: {
-            current: 52,
-            total:100
-        },
-        methods: {
-            showPage: function(page) { alert(page); }
-        }
-	});
 </script>
