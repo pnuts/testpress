@@ -1,122 +1,54 @@
-window.data1 = [
-    {
-        title: 'How to reload widget component after ajax jQuery Mobile',
-        status: 'waitinng',
-        selected: false,
-        id: 1,
-        days: 0,
-        votes: 2,
-        reviewer: 'cider',
-        categories: [
-            { alias: 'hostucan', name: 'HostUCan' }
-        ],
-        tags: [
-            { alias: 'content', name: 'Content' },
-            { alias: 'data', name: 'Data' },
-            { alias: 'style', name: 'Style' }
-        ],
-        author: { name: 'Pnuts' },
-        date: { last_test: '2017-12-12 05:21' }
-    },
-
-    {
-        title: 'tomcat http 400 issue message null',
-        status: 'passed',
-        selected: false,
-        id: 2,
-        days: 10,
-        votes: 2,
-        reviewer: 'cider',
-        categories: [
-            { alias: 'hostucan', name: 'HostUCan' }
-        ],
-        tags: [
-            { alias: 'content', name: 'Content' },
-            { alias: 'data', name: 'Data' },
-            { alias: 'style', name: 'Style' }
-        ],
-        author: { name: 'Pnuts' },
-        date: { last_test: '2017-12-12 05:21' }
-    },
-
-    {
-        title: 'How to populate TableView with String Arraylist in JavaFX',
-        status: 'passed',
-        selected: false,
-        id: 3,
-        days: 0,
-        reviewer: 'pnuts',
-        votes: 2,
-        categories: [
-            { alias: 'hostucan', name: 'HostUCan' }
-        ],
-        tags: [
-            { alias: 'content', name: 'Content' },
-            { alias: 'data', name: 'Data' },
-            { alias: 'style', name: 'Style' }
-        ],
-        author: { name: 'Pnuts' },
-        date: { last_test: '2017-12-12 05:21' }
-    },
-
-    {
-        title: 'AjaxControlToolkit: ajaxFileUpload file name change',
-        status: 'failed',
-        selected: false,
-        id: 4,
-        days: 10,
-        votes: 2,
-        reviewer: 'cider',
-        categories: [
-            { alias: 'hostucan', name: 'HostUCan' }
-        ],
-        tags: [
-            { alias: 'content', name: 'Content' },
-            { alias: 'data', name: 'Data' },
-            { alias: 'style', name: 'Style' }
-        ],
-        author: { name: 'Pnuts' },
-        date: { last_test: '2017-12-12 05:21' }
+Storage.prototype.setObject = function (key, value, salt) {
+    let data;
+    if(value instanceof Set) {
+        data = {
+            type: 'Set',
+            value: Array.from(value)
+        };
+    } else if(value instanceof Map) {
+        let pairs = {};
+        value.forEach((v, k) => {pairs[k] = v; });
+        data = {
+            type: 'Map',
+            value: pairs
+        };
+    } else {
+        data = {
+            type: 'Default',
+            value: value
+        };
     }
-];
-window.data2 = [
-    {
-        title: 'Converting a .pfx file to a JKS file',
-        status: 'waitinng',
-        selected: false,
-        id: 5,
-        days: 0,
-        votes: 2,
-        reviewer: 'cider',
-        categories: [
-            { alias: 'hostucan', name: 'HostUCan' }
-        ],
-        tags: [
-            { alias: 'content', name: 'Content' },
-            { alias: 'data', name: 'Data' },
-            { alias: 'style', name: 'Style' }
-        ],
-        author: { name: 'Pnuts' },
-        date: { last_test: '2017-12-12 05:21' }
-    },
 
-    {
-        title: 'Relationship between .iml file and pod.xml file',
-        status: 'passed',
-        selected: false,
-        id: 6,
-        days: 10,
-        votes: 2,
-        reviewer: 'cider',
-        categories: [
-            { alias: 'hostucan', name: 'HostUCan' }
-        ],
-        tags: [
-            { alias: 'content', name: 'Content' },
-            { alias: 'data', name: 'Data' },
-            { alias: 'style', name: 'Style' }
-        ],
-        author: { name: 'Pnuts' },
-        date: { last_test: '2017-12-12 05:21' }
-    },
-];
+    let item = JSON.stringify(data);
+    if(salt !== undefined) {
+        item = CryptoJS.AES.encrypt(item, salt).toLocaleString();
+    }
+    this.setItem(key, item);
+};
+
+Storage.prototype.getObject = function (key, defaultValue = null, salt) {
+    let item = this.getItem(key);
+    if (item === null) {
+        return defaultValue;
+    }
+    try {
+        if(salt !== undefined) {
+            item = CryptoJS.AES.decrypt(item, salt).toString(CryptoJS.enc.Utf8);
+        }
+        let data = JSON.parse(item);
+        switch (data.type) {
+            case 'Set':
+                return new Set(data.value);
+            case 'Map':
+                let ret = new Map();
+                for(let k in data.value) {
+                    ret.set(k, data.value[k]);
+                }
+                return ret;
+            default:
+                return data.value;
+        }
+    } catch (e) {
+        return defaultValue;
+    }
+};

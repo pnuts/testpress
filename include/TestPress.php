@@ -45,7 +45,8 @@ class TestPress
         wp_enqueue_script('jquery-3.2.1', $uri . '/lib/jquery/jquery-3.2.1.min.js');
 
         /* Vue */
-        wp_enqueue_script('vuejs', $uri . '/lib/vue/vue-2.5.11.min.js');
+        wp_enqueue_script('vue', $uri . '/lib/vue/vue-2.5.11.min.js');
+	    wp_enqueue_script('vuex', $uri . '/lib/vue/vuex.js');
 
 	    /* Aes */
 	    wp_enqueue_script('aes', $uri . '/lib/aes/aes.js');
@@ -57,8 +58,11 @@ class TestPress
         wp_enqueue_style('bootstrap-css', $uri . '/lib/bootstrap/bootstrap.min.css');
         wp_enqueue_script('bootstrap-js', $uri . '/lib/bootstrap/bootstrap.min.js');
 
-        /* Theme Script */
-        wp_enqueue_script('base-script', $uri . '/script/script.js');
+        /* Base Script */
+	    wp_enqueue_script('base-script', $uri . '/script/script.js');
+
+        /* Test Data Script */
+        wp_enqueue_script('test-data', $uri . '/script/data.js');
     }
 
     public function adminEnqueueScriptsAction()
